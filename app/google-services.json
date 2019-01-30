@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "506822607658",
+    "firebase_url": "https://agendaodonto-29023.firebaseio.com",
+    "project_id": "agendaodonto-29023",
+    "storage_bucket": "agendaodonto-29023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506822607658:android:f97c98b8b0715305",
+        "android_client_info": {
+          "package_name": "br.com.agendaodonto.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506822607658-0tcct8n6e2evpmcush69k75mjcnm02mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs5j4h0rIOMdF3y3oiHzOASRMccUzBVhw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506822607658:android:0e232d239c64026a",
+        "android_client_info": {
+          "package_name": "br.com.agendaodonto.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506822607658-0tcct8n6e2evpmcush69k75mjcnm02mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs5j4h0rIOMdF3y3oiHzOASRMccUzBVhw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
