@@ -1,22 +1,22 @@
-package br.com.agendaodonto
+package br.com.agendaodonto.activities
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import br.com.agendaodonto.*
+import br.com.agendaodonto.services.LoginData
 
 
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.URL
 
 /**
  * A login screen that offers login via email/password.

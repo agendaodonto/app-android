@@ -1,5 +1,6 @@
-package br.com.agendaodonto
+package br.com.agendaodonto.services
 
+import br.com.agendaodonto.LoginResposeData
 import com.fasterxml.jackson.annotation.JsonProperty
 import retrofit2.Call
 import retrofit2.http.Body
@@ -9,7 +10,7 @@ import retrofit2.http.POST
 
 interface LoginService {
 
-    @POST("auth/login/")
+    @POST("auth/token/login/")
     fun authenticate(@Body email: LoginData): Call<LoginResposeData>
 
     @PATCH("v1/dentists/me/")

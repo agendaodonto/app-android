@@ -1,4 +1,4 @@
-package br.com.agendaodonto
+package br.com.agendaodonto.services
 
 import android.telephony.SmsManager
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -10,6 +10,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
 import android.widget.Toast
+import br.com.agendaodonto.Preferences
+import br.com.agendaodonto.RetrofitConfig
+import br.com.agendaodonto.database.MessageEntity
+import br.com.agendaodonto.database.MessageService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +30,14 @@ class FirebaseIDService : FirebaseMessagingService() {
     @Override
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d(TAG, "New message received!")
+        val entity = MessageEntity(
+            uid = 0,
+            to = message.data["sendTo"],
+            content = message.data["content"],
+            scheduleId = message.data["scheduleId"],
+            notified = false
+        )
+        MessageService.db.getDb(this).messageDao().insertAll(entity)
         sendTextMessage(message.data["sendTo"]!!, message.data["content"]!!, message.data["scheduleId"]!!)
     }
 
@@ -34,7 +46,6 @@ class FirebaseIDService : FirebaseMessagingService() {
         val parts = smsManager.divideMessage(body)
         val sentIntents = ArrayList<PendingIntent>()
         val mSendIntent = Intent("br.com.agendaodonto.ACTION_MESSAGE_SENT")
-//        mSendIntent.extras!!.putString("scheduleId", scheduleId)
 
         for (i in 0 until parts.size) {
             mSendIntent.putExtra("scheduleId", scheduleId)
@@ -51,7 +62,10 @@ class FirebaseIDService : FirebaseMessagingService() {
                 val job = RetrofitConfig().getScheduleService().updateScheduleStatus(token, scheduleId, payload)
 
                 job.enqueue(object : Callback<ScheduleStatusResponse> {
-                    override fun onResponse(call: Call<ScheduleStatusResponse>, response: Response<ScheduleStatusResponse>) {
+                    override fun onResponse(
+                        call: Call<ScheduleStatusResponse>,
+                        response: Response<ScheduleStatusResponse>
+                    ) {
                         if (response.isSuccessful) {
                             Toast.makeText(context, "Sucesso !", Toast.LENGTH_SHORT).show()
                         } else {

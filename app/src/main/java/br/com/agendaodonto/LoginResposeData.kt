@@ -8,7 +8,7 @@ class LoginResposeData {
     private lateinit var authToken: String
 
     @JsonProperty("non_field_errors", required = false)
-    private lateinit var nonFieldErrors: List<String>;
+    private lateinit var nonFieldErrors: List<String>
 
     fun getAuthToken(): String {
         return authToken

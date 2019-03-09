@@ -1,5 +1,7 @@
 package br.com.agendaodonto
 
+import br.com.agendaodonto.services.LoginService
+import br.com.agendaodonto.services.ScheduleService
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 

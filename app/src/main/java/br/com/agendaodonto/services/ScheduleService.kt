@@ -1,4 +1,4 @@
-package br.com.agendaodonto
+package br.com.agendaodonto.services
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import retrofit2.Call
