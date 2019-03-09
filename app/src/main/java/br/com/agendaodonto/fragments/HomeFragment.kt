@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun logDb() {
-        val messages = MessageService.db.getDb(context!!).messageDao().getAll()
+        val messages = MessageService.getInstance(context!!).messageDao().getAll()
         messages.forEach {
             Log.d(TAG, "Content => " + it.content)
         }

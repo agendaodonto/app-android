@@ -17,6 +17,7 @@ import br.com.agendaodonto.database.MessageService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class FirebaseIDService : FirebaseMessagingService() {
@@ -33,11 +34,13 @@ class FirebaseIDService : FirebaseMessagingService() {
         val entity = MessageEntity(
             uid = 0,
             to = message.data["sendTo"],
+            receivedAt = Date().toString(),
             content = message.data["content"],
             scheduleId = message.data["scheduleId"],
-            notified = false
+            notified = false,
+            serverNotified = false
         )
-        MessageService.db.getDb(this).messageDao().insertAll(entity)
+        MessageService.getInstance(this).messageDao().insert(entity)
         sendTextMessage(message.data["sendTo"]!!, message.data["content"]!!, message.data["scheduleId"]!!)
     }
 
@@ -46,6 +49,7 @@ class FirebaseIDService : FirebaseMessagingService() {
         val parts = smsManager.divideMessage(body)
         val sentIntents = ArrayList<PendingIntent>()
         val mSendIntent = Intent("br.com.agendaodonto.ACTION_MESSAGE_SENT")
+        val notificationEntity = MessageService.getInstance(this).messageDao().getByScheduleId(scheduleId.toInt())
 
         for (i in 0 until parts.size) {
             mSendIntent.putExtra("scheduleId", scheduleId)
@@ -56,17 +60,20 @@ class FirebaseIDService : FirebaseMessagingService() {
 
         val messageSentReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                val scheduleId = intent.getStringExtra("scheduleId")
                 val token = "Token " + Preferences(context).token
                 val payload = UpdateScheduleData(1)
                 val job = RetrofitConfig().getScheduleService().updateScheduleStatus(token, scheduleId, payload)
-
+                notificationEntity.notified = true
+                MessageService.getInstance(context).messageDao().update(notificationEntity)
+                // Updates the server
                 job.enqueue(object : Callback<ScheduleStatusResponse> {
                     override fun onResponse(
                         call: Call<ScheduleStatusResponse>,
                         response: Response<ScheduleStatusResponse>
                     ) {
                         if (response.isSuccessful) {
+                            notificationEntity.serverNotified = true
+                            MessageService.getInstance(context).messageDao().update(notificationEntity)
                             Toast.makeText(context, "Sucesso !", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(context, "Falhou !", Toast.LENGTH_SHORT).show()
