@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import br.com.agendaodonto.*
+import br.com.agendaodonto.Preferences
+import br.com.agendaodonto.R
+import br.com.agendaodonto.RetrofitConfig
 import br.com.agendaodonto.database.MessageService
 import br.com.agendaodonto.services.DentistData
 import br.com.agendaodonto.services.TokenData

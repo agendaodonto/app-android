@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ListView
-import br.com.agendaodonto.*
-import br.com.agendaodonto.adapters.NotificationAdapter
+import br.com.agendaodonto.R
 import br.com.agendaodonto.database.MessageService
 
 
@@ -33,8 +33,7 @@ class MessagesFragment : Fragment() {
 
     private fun loadMessages() {
         val messages = MessageService.getInstance(context!!).messageDao().getAll()
-//        val adapter = ArrayAdapter<MessageEntity>(context!!, android.R.layout.simple_list_item_1, messages)
-        val adapter = NotificationAdapter(messages, activity!!)
+        val adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, messages)
         listView.adapter = adapter
     }
 

@@ -33,7 +33,7 @@ android {
         production {
             applicationIdSuffix ".prod"
             versionNameSuffix "-prod"
-            resValue "string", "app_name", "AgendaOdonto (PROD)"
+            resValue "string", "app_name", "AgendaOdonto"
             buildConfigField("String", "BASE_URL", "\"https://backend.agendaodonto.com/\"")
         }
     }
